@@ -40,9 +40,9 @@
 						onfocus="if (this.value=='Your password')  this.value='';" /></td>
 				</tr>
 				<tr>
-					<td><input type="submit" name="Submit" value="提交"
+					<td><input type="submit" name="Submit" value="登录"
 						onClick="return validateLogin()" /></td>
-					<td><input type="reset" name="Reset" value="重置" /></td>
+					<td><input type="reset" name="Reset" value="重置" />
 				</tr>
 			</table>
 		</center>

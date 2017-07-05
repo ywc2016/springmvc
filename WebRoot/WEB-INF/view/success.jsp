@@ -27,7 +27,6 @@
 		String age = (String) session.getAttribute("age");
 		String weight = (String) session.getAttribute("weight");
 		String sex = (String) session.getAttribute("sex");
-		System.out.println("性别：" + sex + "");
 		if (sex.trim().equals("M")) {
 			sex = "男";
 		} else {
@@ -36,8 +35,8 @@
 	%>
 	<div align="center">
 		<%=userName%>
-		欢迎您，登陆成功！<br /> <font color="blue">登陆用户信息：</font>
-		<table border=1>
+		欢迎您，登陆成功！<br /> <br /> <font color="blue">登陆用户信息：</font>
+		<table border=1 style="margin-top: 20px;margin-bottom: 20px;">
 			<tr>
 				<td>&nbsp;姓名：&nbsp;</td>
 				<td>&nbsp;&nbsp;<%=userName%>&nbsp;&nbsp;
@@ -57,11 +56,12 @@
 				<td>&nbsp;&nbsp;<%=sex%>&nbsp;&nbsp;</>
 			</tr>
 		</table>
-		<a href="./">返回</a>
+		<a href="./logout">退出登录</a>
 	</div>
-	
+
 	<div align="center" style="margin-top: 20px">
-		<a href="">查看用户</a> <a href="">添加用户</a> <a href="">修改用户</a> <a href="">删除用户</a>
+		<a href="./showUsers">查看用户</a> <a href="">添加用户</a> <a href="">修改用户</a>
+		<a href="">删除用户</a>
 	</div>
 </body>
 </html>

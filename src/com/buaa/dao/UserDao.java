@@ -39,8 +39,8 @@ public class UserDao extends BaseDao {
 	 * @return
 	 */
 	public Map showUsers(String rows, String page) {
-		int intRows = (rows == null ? 5 : Integer.parseInt(rows)); // 一页显示的记录数
-		int intPage = (page == null ? 1 : Integer.parseInt(page)); // 待显示的页码
+		int intRows = ("".equals(rows) ? 5 : Integer.parseInt(rows)); // 一页显示的记录数
+		int intPage = ("".equals(page) ? 1 : Integer.parseInt(page)); // 待显示的页码
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
@@ -48,7 +48,7 @@ public class UserDao extends BaseDao {
 			// 创建执行语句
 			String sql = "select * from userinfo limit ?,?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, (intRows - 1) * intRows);
+			pstmt.setInt(1, (intPage - 1) * intRows);
 			pstmt.setInt(2, intRows);
 			rs = pstmt.executeQuery();
 		} catch (SQLException e) {
@@ -62,10 +62,12 @@ public class UserDao extends BaseDao {
 		try {
 			conn = getConn();
 			// 创建执行语句
-			String sql = "select count (*) from userinfo";
+			String sql = "select count(*) from userinfo";
 			Statement statement = conn.createStatement();
 			rs2 = statement.executeQuery(sql);
-			intRowCount = rs.getInt(0);
+			if (rs2.next()) {
+				intRowCount = rs2.getInt(1);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

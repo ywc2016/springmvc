@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ import com.buaa.dao.UserDao;
 
 @Service
 public class UserService {
-	private UserDao springMVCDao = new UserDao();
+	private UserDao userDao = new UserDao();
 
 	public String doLogin(String username, String psw, String loginurl,
 			HttpServletRequest request) {
@@ -40,10 +41,8 @@ public class UserService {
 			}
 		}
 
-		ResultSet rs = springMVCDao.getUserByUserNameAndPsw(username, psw);
-
+		ResultSet rs = userDao.getUserByUserNameAndPsw(username, psw);
 		HttpSession session = request.getSession();
-		session.setAttribute("username", username);
 		try {
 			if (rs.next()) { // 如果记录集非空，表明有匹配的用户名和密码，登陆成功
 				// 登录成功后将username设置为session变量的username
@@ -52,6 +51,7 @@ public class UserService {
 				session.setAttribute("age", rs.getString("age"));
 				session.setAttribute("sex", rs.getString("sex"));
 				session.setAttribute("weight", rs.getString("weight"));
+				session.setAttribute("username", username);
 				return "/success";
 			} else {
 				session.setAttribute("message", "用户名或密码不匹配。");
@@ -68,5 +68,9 @@ public class UserService {
 		}
 
 		return loginurl;
+	}
+
+	public Map<String, Object> showUsers(String rows, String page) {
+		return userDao.showUsers(rows, page);
 	}
 }
