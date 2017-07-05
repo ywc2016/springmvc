@@ -14,6 +14,11 @@ public class UserController {
 	@Autowired
 	HttpServletRequest request;
 
+	@RequestMapping("/")
+	public String hello() {
+		return "/login";
+	}
+
 	@RequestMapping("/login")
 	public String dologin() {
 
@@ -22,13 +27,14 @@ public class UserController {
 		String username = request.getParameter("username");
 		String psw = request.getParameter("password");
 
-		return service
-				.doLogin(username, psw, "/login", request);
+		return service.doLogin(username, psw, "/login", request);
 
 	}
 
-	@RequestMapping("/")
-	public String hello() {
-		return "/login";
+	@RequestMapping("/showUsers")
+	public String showUsers() {
+		
+		return "showUsers";
 	}
+
 }
