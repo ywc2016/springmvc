@@ -56,12 +56,15 @@
 				<td>&nbsp;&nbsp;<%=sex%>&nbsp;&nbsp;</>
 			</tr>
 		</table>
-		<a href="./logout">退出登录</a>
 	</div>
 
 	<div align="center" style="margin-top: 20px">
 		<a href="./showUsers">查看用户</a> <a href="">添加用户</a> <a href="">修改用户</a>
 		<a href="">删除用户</a>
+	</div>
+
+	<div align="center" style="margin-top: 20px">
+		<a href="./logout">退出登录</a>
 	</div>
 </body>
 </html>
