@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.buaa.service.SpringMVCService;
+import com.buaa.service.UserService;
 
 @Controller
-public class SpringMVCController {
+public class UserController {
 
 	@Autowired
 	HttpServletRequest request;
@@ -17,7 +17,7 @@ public class SpringMVCController {
 	@RequestMapping("/login")
 	public String dologin() {
 
-		SpringMVCService service = new SpringMVCService();
+		UserService service = new UserService();
 
 		String username = request.getParameter("username");
 		String psw = request.getParameter("password");

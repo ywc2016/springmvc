@@ -12,8 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.buaa.dao.UserDao;
+
 @Service
-public class SpringMVCService {
+public class UserService {
+	private UserDao springMVCDao = new UserDao();
+
 	public String doLogin(String username, String psw, String loginurl,
 			HttpServletRequest request) {
 		String result = "";
@@ -36,29 +40,8 @@ public class SpringMVCService {
 			}
 		}
 
-		// 登记JDBC驱动程序
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("Class Not Found Exception . ");
-		}
-		// 连接URL
-		String url = "jdbc:mysql://localhost:3306/learn_jsp?user=root&password=root&useUnicode=true&characterEncoding=utf-8";
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
+		ResultSet rs = springMVCDao.getUserByUserNameAndPsw(username, psw);
 
-		try {
-			conn = DriverManager.getConnection(url);
-			stmt = conn.createStatement();
-			// SQL语句
-			String sql = "select * from userInfo where username='" + username
-					+ "' and userpsw= '" + psw + "'";
-			rs = stmt.executeQuery(sql);// 返回查询结果
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		HttpSession session = request.getSession();
 		session.setAttribute("username", username);
 		try {
@@ -76,6 +59,12 @@ public class SpringMVCService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return loginurl;

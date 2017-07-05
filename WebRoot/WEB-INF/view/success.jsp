@@ -2,8 +2,8 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
-	+ request.getServerName() + ":" + request.getServerPort()
-	+ path + "/";
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -21,11 +21,6 @@
 
 </head>
 
-<body>
-<html>
-<head>
-<title>登陆</title>
-</head>
 <body>
 	<%
 		String userName = (String) session.getAttribute("username");
@@ -63,6 +58,10 @@
 			</tr>
 		</table>
 		<a href="./">返回</a>
+	</div>
+	
+	<div align="center" style="margin-top: 20px">
+		<a href="">查看用户</a> <a href="">添加用户</a> <a href="">修改用户</a> <a href="">删除用户</a>
 	</div>
 </body>
 </html>

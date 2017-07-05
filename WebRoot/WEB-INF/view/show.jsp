@@ -1,4 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.lang.Math.*"%>
+<%@ page import="java.io.*"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -11,7 +15,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>fail</title>
+<title>My JSP 'show.jsp' starting page</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -22,20 +26,18 @@
 </head>
 
 <body>
-	<%
-		String userName = (String) session.getAttribute("username");
-		String msg = (String) session.getAttribute("message");
-	%>
 	<div align="center">
-		<%=userName%>
-		对不起，登陆失败！<br /> <font color="red">原因： </font>
-		<%=msg%>
-		<br /> <br /> 5秒后将返回登陆界面。
+		<strong>分页显示数据库记录</strong>
 	</div>
-
-	<%
-		response.setHeader("Refresh", "5;URL=" + basePath + "");
-	%>
+	<br>
+	<hr>
+	<table width="800" border="1" align="center">
+		<tr>
+			<td>姓名</td>
+			<td>年龄</td>
+			<td>体重</td>
+			<td>性别</td>
+		</tr>
+	</table>
 </body>
 </html>
-
