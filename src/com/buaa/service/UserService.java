@@ -73,4 +73,16 @@ public class UserService {
 	public Map<String, Object> showUsers(String rows, String page) {
 		return userDao.showUsers(rows, page);
 	}
+
+	public String add(HttpServletRequest request) {
+
+		String username = request.getParameter("username");
+		String passwordString = request.getParameter("password");
+		String age = request.getParameter("age");
+		String gender = request.getParameter("gender");
+		String weight = request.getParameter("weight");
+		String result = userDao.add(username, passwordString, age,
+				gender, weight);
+		return result;
+	}
 }

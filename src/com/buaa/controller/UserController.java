@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.buaa.service.UserService;
@@ -69,5 +70,21 @@ public class UserController {
 			// System.out.println(session.getAttribute("username"));//返回值是null
 		}
 		return "/login";
+	}
+
+	@RequestMapping(value = "/addUser")
+	public String addUser() {
+		return "/addUser";
+	}
+
+	@RequestMapping(value = "/add")
+	public String add(Model model) {
+		String result = userService.add(request);
+		if (result.equals("success")) {
+			model.addAttribute("result", "添加成功!");
+		} else {
+			model.addAttribute("result", "添加失败!");
+		}
+		return "addResult";
 	}
 }

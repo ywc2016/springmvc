@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,5 +82,36 @@ public class UserDao extends BaseDao {
 		map.put("rows", rs);
 		map.put("total", intPageCount);
 		return map;
+	}
+
+	public String add(String username, String password, String age,
+			String gender, String weight) {
+		Connection conn = null;
+		try {
+			conn = getConn();
+			// 创建执行语句
+			String sql = "INSERT INTO userinfo(username,userpsw,age,weight,sex) VALUES(?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			if (age.isEmpty()) {
+				pstmt.setNull(3, Types.INTEGER);
+			} else {
+				pstmt.setInt(3, Integer.parseInt(age));
+			}
+			if (weight.isEmpty()) {
+				pstmt.setNull(4, Types.INTEGER);
+			} else {
+				pstmt.setInt(4, Integer.parseInt(weight));
+			}
+
+			pstmt.setString(5, gender);
+			pstmt.executeUpdate();
+			return "success";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "failed";
+		}
+
 	}
 }

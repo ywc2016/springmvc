@@ -38,6 +38,7 @@
 			<th>年龄</th>
 			<th>体重</th>
 			<th>性别</th>
+			<th colspan="2">操作</th>
 		</tr>
 
 		<%
@@ -47,8 +48,12 @@
 		<tr>
 			<td><%=rs.getString("username")%></td>
 			<td><%=rs.getString("age")%></td>
-			<td><%=rs.getString("weight")%></td>
+			<td><%=rs.getString("weight")%>kg</td>
 			<td><%=rs.getString("sex")%></td>
+			<td width="80px"><a
+				href="modifyUser?id=<%=rs.getInt("id") + ""%>">修改用户</a></td>
+			<td width="80px"><a
+				href="deleteUser?id=<%=rs.getInt("id") + ""%>"> 删除用户</a></td>
 		</tr>
 		<%
 			}
@@ -61,11 +66,11 @@
 					.parseInt(request.getAttribute("currentPage").toString()) > 1) {
 		%>
 		<a href="./showUsers?page=${currentPage-1}"
-			} style="margin-right: 10px">上一页</a>
+			}
+				style="margin-right: 10px">上一页</a>
 		<%
 			}
 		%>
-
 		<%
 			for (int i = 1; i <= Integer.parseInt(request.getAttribute("total")
 					.toString()); i++) {
@@ -77,7 +82,6 @@
 		<%
 			}
 		%>
-
 		<%
 			if (Integer
 					.parseInt(request.getAttribute("currentPage").toString()) < Integer
