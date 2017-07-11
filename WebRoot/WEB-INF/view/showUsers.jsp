@@ -1,3 +1,4 @@
+<%@page import="com.buaa.po.UserInfo"%>
 <%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
@@ -7,8 +8,8 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	+ request.getServerName() + ":" + request.getServerPort()
+	+ path + "/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -42,18 +43,20 @@
 		</tr>
 
 		<%
-			ResultSet rs = (ResultSet) request.getAttribute("rows");
-			for (; rs.next();) {
+			List<UserInfo> userInfos = (List<UserInfo>) request.getAttribute("rows");
+			Iterator iterator = userInfos.iterator();
+			for (; iterator.hasNext();) {
+			UserInfo userInfo = (UserInfo)iterator.next();
 		%>
 		<tr>
-			<td><%=rs.getString("username")%></td>
-			<td><%=rs.getString("age")%></td>
-			<td><%=rs.getString("weight")%>kg</td>
-			<td><%=rs.getString("sex")%></td>
+			<td><%=userInfo.getUsername()%></td>
+			<td><%=userInfo.getAge()%></td>
+			<td><%=userInfo.getWeight()%>kg</td>
+			<td><%=userInfo.getSex()%></td>
 			<td width="80px"><a
-				href="modifyUser?id=<%=rs.getInt("id") + ""%>">修改用户</a></td>
+				href="modifyUser?id=<%=userInfo.getId() + ""%>">修改用户</a></td>
 			<td width="80px"><a
-				href="deleteUser?id=<%=rs.getInt("id") + ""%>"> 删除用户</a></td>
+				href="deleteUser?id=<%=userInfo.getId()+ ""%>"> 删除用户</a></td>
 		</tr>
 		<%
 			}
@@ -65,9 +68,7 @@
 			if (Integer
 					.parseInt(request.getAttribute("currentPage").toString()) > 1) {
 		%>
-		<a href="./showUsers?page=${currentPage-1}"
-			}
-				style="margin-right: 10px">上一页</a>
+		<a href="./showUsers?page=${currentPage-1}" style="margin-right: 10px">上一页</a>
 		<%
 			}
 		%>
@@ -82,12 +83,14 @@
 		<%
 			}
 		%>
+		
 		<%
 			if (Integer
 					.parseInt(request.getAttribute("currentPage").toString()) < Integer
 					.parseInt(request.getAttribute("total").toString())) {
 		%>
 		<a href="./showUsers?page=${currentPage+1}" style="margin-left: 10px">下一页</a>
+		
 		<%
 			}
 		%>

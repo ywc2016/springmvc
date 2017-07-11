@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.buaa.po.UserInfo;
 import com.buaa.service.UserService;
 
 @Controller
@@ -38,7 +39,7 @@ public class UserController {
 		String username = request.getParameter("username");
 		String psw = request.getParameter("password");
 
-		return userService.doLogin(username, psw, "/login", request);
+		return userService.doLogin(username, psw, request);
 
 	}
 
@@ -86,5 +87,39 @@ public class UserController {
 			model.addAttribute("result", "添加失败!");
 		}
 		return "addResult";
+	}
+
+	@RequestMapping("/modifyUser")
+	public String modifyUser(Model model,
+			@RequestParam(value = "id", required = true) String id) {
+		UserInfo userInfo = userService.findById(id);
+		model.addAttribute("userInfo", userInfo);
+		return "modifyUser";
+	}
+
+	@RequestMapping("/save")
+	public String modifyUser(
+			Model model,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "username", defaultValue = "") String username,
+			@RequestParam(value = "age", defaultValue = "") String age,
+			@RequestParam(value = "weight", defaultValue = "") String weight,
+			@RequestParam(value = "sex", defaultValue = "") String sex) {
+		String result = userService.update(id, username, age, weight, sex);
+		if (result.equals("success")) {
+			model.addAttribute("result", "修改成功!");
+		} else {
+			model.addAttribute("result", "修改失败!");
+		}
+
+		return "modifyUserResult";
+	}
+
+	@RequestMapping("/deleteUser")
+	public String deleteUser(Model model,
+			@RequestParam(value = "id", required = true) String id) {
+		String result = userService.deleteById(id);
+		model.addAttribute("result", result.equals("success") ? "删除成功" : "删除失败");
+		return "deleteUserResult";
 	}
 }

@@ -23,15 +23,10 @@
 
 <body>
 	<%
-		String userName = (String) session.getAttribute("username");
-		String age = (String) session.getAttribute("age");
-		String weight = (String) session.getAttribute("weight");
-		String sex = (String) session.getAttribute("sex");
-		if (sex.trim().equals("M")) {
-			sex = "男";
-		} else {
-			sex = "女";
-		}
+		String userName = session.getAttribute("username").toString();
+		String age = session.getAttribute("age").toString();
+		String weight = session.getAttribute("weight").toString();
+		String sex = session.getAttribute("sex").toString();
 	%>
 	<div align="center">
 		<%=userName%>
